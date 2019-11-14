@@ -19,6 +19,8 @@ buildscript {
             'stetho': '1.5.1',
             'glide': '4.9.0',
             'okhttp': '3.14.1',
+            'moshi': '1.9.1',
+            'stateMachine': '0.2.0',
             'ktx': '1.0.2',
             'junit' : '4.12',
             'assertj' : '3.10.0',
@@ -69,6 +71,8 @@ buildscript {
                     'okhttp': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
             ],
             'okhttp': "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+            'moshi': "com.squareup.moshi:moshi-kotlin:${versions.moshi}",
+            'stateMachine': "com.tinder.statemachine:statemachine:${versions.stateMachine}",
             'test': [
                     'junit': "junit:junit:${versions.junit}",
                     'espresso': "androidx.test.espresso:espresso-core:${versions.espresso}",

@@ -76,6 +76,12 @@ dependencies {
     kapt deps.glide.compiler
     implementation deps.glide.webpDecoder
 
+    // State Machine
+    implementation deps.stateMachine
+
+    // Moshi
+    implementation deps.moshi
+
     // Testing
     testImplementation deps.test.junit
     androidTestImplementation deps.test.androidxTestRunner
