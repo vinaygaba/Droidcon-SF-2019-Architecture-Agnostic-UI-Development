@@ -1,4 +1,4 @@
-package com.droidconsf.architectureagnosticuidevelopment.ui.main
+package com.droidconsf.architectureagnosticuidevelopment.viewmodels
 
 import androidx.lifecycle.ViewModel
 
