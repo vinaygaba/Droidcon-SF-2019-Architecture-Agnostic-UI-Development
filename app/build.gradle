@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "29.0.1"
+    defaultConfig {
+        applicationId "com.droidconsf.architectureagnosticuidevelopment"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Kotlin
+    implementation deps.kotlinStdLib
+
+    // Support Library
+    implementation deps.support.appCompat
+    implementation deps.support.recyclerView
+    implementation deps.support.cardView
+    implementation deps.support.ktx
+
+    // Lifecycle
+    implementation deps.lifecycle.archComponents
+    kapt deps.lifecycle.compiler
+    implementation deps.lifecycle.room
+    kapt deps.lifecycle.roomCompiler
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.viewmodelKtx
+
+    // RxJava
+    implementation deps.rx.core
+    implementation deps.rx.android
+
+    // Retrofit
+    implementation deps.retrofit.core
+    implementation deps.retrofit.rxjavaAdapter
+    implementation deps.retrofit.moshi
+    implementation deps.retrofit.gson
+
+    // OkHttp
+    implementation deps.okhttp
+
+    // Dagger
+    implementation deps.dagger.core
+    kapt deps.dagger.compiler
+
+    // Constraint Layout
+    implementation deps.constraintLayout
+
+    //Stetho
+    implementation deps.stetho.core
+    implementation deps.stetho.okhttp
+
+    // Picasso
+    implementation deps.picasso
+
+    // Glide
+    implementation deps.glide.core
+    kapt deps.glide.compiler
+    implementation deps.glide.webpDecoder
+
+    // Testing
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.androidxTestRunner
+    androidTestImplementation deps.test.espresso
+}
