@@ -4,7 +4,7 @@ import com.droidconsf.architectureagnosticuidevelopment.BuildConfig
 import com.droidconsf.architectureagnosticuidevelopment.api.MarvelApi
 import com.droidconsf.architectureagnosticuidevelopment.rx.SchedulersProvider
 import com.droidconsf.architectureagnosticuidevelopment.util.md5
-import java.util.*
+import java.util.Date
 
 // TODO(vinay) Replace this with a usecase which in turn contains a repository which references the
 // MarvelApi
