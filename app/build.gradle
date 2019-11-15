@@ -86,6 +86,12 @@ dependencies {
     // Moshi
     implementation deps.moshi
 
+    // Flipper
+    debugImplementation deps.flipper.core
+    debugImplementation deps.flipper.network
+    debugImplementation deps.flipper.soloader
+    releaseImplementation deps.flipper.noop
+
     // Testing
     testImplementation deps.test.junit
     androidTestImplementation deps.test.androidxTestRunner
