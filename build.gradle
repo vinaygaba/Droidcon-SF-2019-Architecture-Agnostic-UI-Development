@@ -71,7 +71,10 @@ buildscript {
                     'okhttp': "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
             ],
             'okhttp': "com.squareup.okhttp3:okhttp:${versions.okhttp}",
-            'moshi': "com.squareup.moshi:moshi-kotlin:${versions.moshi}",
+            'moshi': [
+                    'core':"com.squareup.moshi:moshi-kotlin:${versions.moshi}",
+                    'codegen': "com.squareup.moshi:moshi-kotlin-codegen:${versions.moshi}"
+            ],
             'stateMachine': "com.tinder.statemachine:statemachine:${versions.stateMachine}",
             'test': [
                     'junit': "junit:junit:${versions.junit}",
