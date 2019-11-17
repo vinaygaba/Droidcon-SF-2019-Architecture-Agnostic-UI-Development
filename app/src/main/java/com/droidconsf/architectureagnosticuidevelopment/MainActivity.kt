@@ -2,6 +2,7 @@ package com.droidconsf.architectureagnosticuidevelopment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.droidconsf.architectureagnosticuidevelopment.di.ActivityModule
 import com.droidconsf.architectureagnosticuidevelopment.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

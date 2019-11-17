@@ -6,6 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.1"
@@ -16,6 +20,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
+        buildConfigField("String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY'])
     }
     buildTypes {
         release {
@@ -84,7 +90,8 @@ dependencies {
     implementation deps.stateMachine
 
     // Moshi
-    implementation deps.moshi
+    implementation deps.moshi.core
+    kapt deps.moshi.codegen
 
     // Flipper
     debugImplementation deps.flipper.core

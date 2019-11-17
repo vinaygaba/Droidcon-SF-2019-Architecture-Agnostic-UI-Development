@@ -7,11 +7,21 @@ import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.soloader.SoLoader
+import com.droidconsf.architectureagnosticuidevelopment.di.AppComponent
+import com.droidconsf.architectureagnosticuidevelopment.di.AppModule
+import com.droidconsf.architectureagnosticuidevelopment.di.DaggerAppComponent
+import com.droidconsf.architectureagnosticuidevelopment.di.NetModule
 
 
 class ArchitectureAgnosticUiApplication: Application() {
+    var appComponent: AppComponent? = null
+
     override fun onCreate() {
         super.onCreate()
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .netModule(NetModule())
+            .build()
         SoLoader.init(this, false)
         if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
             val client = AndroidFlipperClient.getInstance(this)

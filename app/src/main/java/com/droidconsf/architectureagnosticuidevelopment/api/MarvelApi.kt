@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface MarvelApi {
 
     @GET("v1/public/comics")
-    fun getComics(@Query("ts") ts: String,
+    fun getComics(@Query("ts") timestamp: String,
                   @Query("apikey") apiKey: String,
                   @Query("hash") hash: String): Single<Response<MarvelResponses>>
 }
