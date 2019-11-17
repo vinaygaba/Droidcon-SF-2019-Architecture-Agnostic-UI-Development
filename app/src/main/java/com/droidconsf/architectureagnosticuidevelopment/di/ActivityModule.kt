@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import com.droidconsf.architectureagnosticuidevelopment.api.MarvelApi
 import com.droidconsf.architectureagnosticuidevelopment.rx.SchedulersProvider
+import com.droidconsf.architectureagnosticuidevelopment.usecases.GetComics
 import com.droidconsf.architectureagnosticuidevelopment.viewmodels.MainViewModel
 import com.droidconsf.architectureagnosticuidevelopment.viewmodels.ViewModelFactory
 import dagger.Module
@@ -16,10 +17,10 @@ class ActivityModule(val activity: FragmentActivity) {
 
     @ActivityScope
     @Provides
-    fun provideViewModelFactory(marvelApi: MarvelApi,
+    fun provideViewModelFactory(getComics: GetComics,
                                 schedulersProvider: SchedulersProvider): ViewModelFactory {
 
-        return ViewModelFactory(marvelApi, schedulersProvider)
+        return ViewModelFactory(schedulersProvider, getComics)
     }
 
     @ActivityScope
