@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class ComicbooksFragment : Fragment() {
     internal lateinit var viewModel: MainViewModel
 
     private lateinit var rvComicbooks: RecyclerView
+    private lateinit var pbCharacter: ProgressBar
     private val comicbooksAdapter = ComicbooksAdapter()
 
     override fun onCreateView(
@@ -45,18 +47,27 @@ class ComicbooksFragment : Fragment() {
                 ?.inject(this)
         }
 
-        setUpRecyclerView()
+        setupViews()
 
         viewModel.triggerEvent(Event.View.LoadComics)
         viewModel.state.observe(this, Observer { state ->
             when (state) {
-                is ViewState.ShowingContent -> comicbooksAdapter.updateData(state.comics)
+                is ViewState.ShowingContent -> {
+                    pbCharacter.visibility = View.GONE
+                    comicbooksAdapter.updateData(state.comics)
+                }
+                is ViewState.Loading -> {
+                    pbCharacter.visibility = View.VISIBLE
+                }
             }
         })
     }
 
-    private fun setUpRecyclerView() {
+    private fun setupViews() {
         view?.let {
+            pbCharacter = it.findViewById(R.id.character_progress_bar)
+
+            // RecyclerView
             rvComicbooks = it.findViewById(R.id.rv_comicbook)
             rvComicbooks.setHasFixedSize(true)
             rvComicbooks.layoutManager = LinearLayoutManager(context)
@@ -67,6 +78,5 @@ class ComicbooksFragment : Fragment() {
                 }
             })
         }
-
     }
 }
