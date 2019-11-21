@@ -23,6 +23,10 @@ android {
         buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
         buildConfigField("String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY'])
     }
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -96,6 +100,11 @@ dependencies {
     // Moshi
     implementation deps.moshi.core
     kapt deps.moshi.codegen
+
+    // Compose
+    implementation deps.compose.tooling
+    implementation deps.compose.layout
+    implementation deps.compose.material
 
     // Flipper
     debugImplementation deps.flipper.core
