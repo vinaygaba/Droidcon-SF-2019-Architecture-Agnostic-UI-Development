@@ -1,7 +1,7 @@
 package com.droidconsf.architectureagnosticuidevelopment.di
 
 import com.droidconsf.architectureagnosticuidevelopment.MainActivity
-import com.droidconsf.architectureagnosticuidevelopment.ui.main.MainFragment
+import com.droidconsf.architectureagnosticuidevelopment.ui.main.ComicbooksFragment
 import dagger.Subcomponent
 
 @ActivityScope
@@ -9,5 +9,5 @@ import dagger.Subcomponent
 interface ActivitySubComponent {
     fun inject(activity: MainActivity)
 
-    fun inject(fragment: MainFragment)
+    fun inject(fragment: ComicbooksFragment)
 }

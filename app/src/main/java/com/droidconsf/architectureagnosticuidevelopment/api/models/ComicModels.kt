@@ -20,5 +20,15 @@ data class Comic(
     val id: Long,
     val title: String,
     val issueNumber: Int,
-    val description: String? = null
+    val description: String? = null,
+    val thumbnail: ComicThumbnail
 )
+
+@JsonClass(generateAdapter = true)
+data class ComicThumbnail(
+    val extension: String,
+    var path: String? = null
+) {
+    val imageUrl: String
+        get() = "$path.$extension"
+}
