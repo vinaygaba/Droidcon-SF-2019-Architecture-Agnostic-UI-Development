@@ -23,10 +23,10 @@ android {
         buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
         buildConfigField("String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY'])
     }
-    buildFeatures {
-        // Enables Jetpack Compose for this module
-        compose true
-    }
+//    buildFeatures {
+//        // Enables Jetpack Compose for this module
+//        compose true
+//    }
     buildTypes {
         release {
             minifyEnabled false
