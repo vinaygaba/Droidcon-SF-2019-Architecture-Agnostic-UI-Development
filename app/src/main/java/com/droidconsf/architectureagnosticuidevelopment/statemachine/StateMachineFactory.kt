@@ -1,8 +1,9 @@
 package com.droidconsf.architectureagnosticuidevelopment.statemachine
 
 import com.tinder.StateMachine
+import javax.inject.Inject
 
-class StateMachineFactory {
+class StateMachineFactory @Inject constructor() {
 
     fun create(
         initialState: ViewState

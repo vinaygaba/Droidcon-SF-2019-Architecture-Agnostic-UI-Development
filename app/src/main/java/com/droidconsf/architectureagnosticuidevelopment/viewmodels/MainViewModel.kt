@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.droidconsf.architectureagnosticuidevelopment.BuildConfig
 import com.droidconsf.architectureagnosticuidevelopment.api.models.MarvelResponses
+import com.droidconsf.architectureagnosticuidevelopment.architecure.LiveEvent
 import com.droidconsf.architectureagnosticuidevelopment.rx.SchedulersProvider
 import com.droidconsf.architectureagnosticuidevelopment.statemachine.Event
 import com.droidconsf.architectureagnosticuidevelopment.statemachine.SideEffect
@@ -16,10 +17,10 @@ import java.util.Date
 
 class MainViewModel(
     val schedulersProvider: SchedulersProvider,
-    val getComics: GetComics
+    val getComics: GetComics,
+    stateMachineFactory: StateMachineFactory
 ) : BaseViewModel() {
 
-    private val stateMachineFactory = StateMachineFactory()
     private val stateMachine = stateMachineFactory.create(ViewState.Empty)
 
     private val _state = MutableLiveData<ViewState>()
@@ -28,7 +29,7 @@ class MainViewModel(
 
     val state: LiveData<ViewState> = _state
     val sideEffect: LiveData<SideEffect> = _sideEffect
-    val viewEvent: LiveData<Event> = _viewEvent
+    val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
 
     init {
         loadComics()
@@ -61,6 +62,7 @@ class MainViewModel(
             md5(timestamp + BuildConfig.PRIVATE_KEY + BuildConfig.API_KEY)
         )
             .subscribeOn(schedulersProvider.io())
+            .observeOn(schedulersProvider.ui())
             .subscribe(
                 { marvelResponse ->
                     triggerEvent(
@@ -73,4 +75,12 @@ class MainViewModel(
             )
             .autodispose()
     }
+}
+
+private fun <T> LiveData<T>.toSingleEvent(): LiveData<T> {
+    val result = LiveEvent<T>()
+    result.addSource(this) {
+        result.value = it
+    }
+    return result
 }

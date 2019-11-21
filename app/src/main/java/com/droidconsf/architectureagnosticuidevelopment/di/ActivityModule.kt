@@ -1,11 +1,9 @@
 package com.droidconsf.architectureagnosticuidevelopment.di
 
-import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
-import com.droidconsf.architectureagnosticuidevelopment.api.MarvelApi
 import com.droidconsf.architectureagnosticuidevelopment.rx.SchedulersProvider
+import com.droidconsf.architectureagnosticuidevelopment.statemachine.StateMachineFactory
 import com.droidconsf.architectureagnosticuidevelopment.usecases.GetComics
 import com.droidconsf.architectureagnosticuidevelopment.viewmodels.MainViewModel
 import com.droidconsf.architectureagnosticuidevelopment.viewmodels.ViewModelFactory
@@ -17,10 +15,12 @@ class ActivityModule(val activity: FragmentActivity) {
 
     @ActivityScope
     @Provides
-    fun provideViewModelFactory(getComics: GetComics,
-                                schedulersProvider: SchedulersProvider): ViewModelFactory {
-
-        return ViewModelFactory(schedulersProvider, getComics)
+    fun provideViewModelFactory(
+        getComics: GetComics,
+        schedulersProvider: SchedulersProvider,
+        stateMachineFactory: StateMachineFactory
+    ): ViewModelFactory {
+        return ViewModelFactory(schedulersProvider, getComics, stateMachineFactory)
     }
 
     @ActivityScope
