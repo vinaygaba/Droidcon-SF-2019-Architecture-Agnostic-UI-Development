@@ -53,8 +53,8 @@ class ComicbooksFragment : Fragment() {
         viewModel.state.observe(this, Observer { state ->
             when (state) {
                 is ViewState.ShowingContent -> {
-                    pbCharacter.visibility = View.GONE
                     comicbooksAdapter.updateData(state.comics)
+                    pbCharacter.visibility = View.GONE
                 }
                 is ViewState.Loading -> {
                     pbCharacter.visibility = View.VISIBLE
