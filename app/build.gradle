@@ -82,9 +82,6 @@ dependencies {
     implementation deps.stetho.core
     implementation deps.stetho.okhttp
 
-    // Picasso
-    implementation deps.picasso
-
     // Glide
     implementation deps.glide.core
     kapt deps.glide.compiler
@@ -102,6 +99,9 @@ dependencies {
     debugImplementation deps.flipper.network
     debugImplementation deps.flipper.soloader
     releaseImplementation deps.flipper.noop
+
+    // Material
+    implementation deps.material
 
     // Testing
     testImplementation deps.test.junit

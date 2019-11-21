@@ -27,6 +27,10 @@ class StateMachineFactory @Inject constructor() {
                     )
                 }
             }
+
+            state<ViewState.ShowingContent> {
+                //no op
+            }
         }
     }
 
