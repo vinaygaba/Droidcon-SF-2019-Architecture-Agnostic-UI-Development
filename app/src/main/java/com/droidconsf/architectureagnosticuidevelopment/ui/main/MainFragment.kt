@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.droidconsf.architectureagnosticuidevelopment.ArchitectureAgnosticUiApplication
 import com.droidconsf.architectureagnosticuidevelopment.R
 import com.droidconsf.architectureagnosticuidevelopment.di.ActivityModule
+import com.droidconsf.architectureagnosticuidevelopment.statemachine.Event
 import com.droidconsf.architectureagnosticuidevelopment.viewmodels.MainViewModel
 import javax.inject.Inject
 
@@ -28,7 +29,7 @@ class MainFragment : Fragment() {
         val view = inflater.inflate(R.layout.main_fragment, container, false)
         val textView = view.findViewById<TextView>(R.id.message)
         textView.setOnClickListener {
-            viewModel.loadComics()
+            viewModel.triggerEvent(Event.View.LoadComics)
         }
 
         return view
