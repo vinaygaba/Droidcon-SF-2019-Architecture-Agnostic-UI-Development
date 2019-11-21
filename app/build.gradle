@@ -56,7 +56,6 @@ dependencies {
 
     // Lifecycle
     implementation deps.lifecycle.archComponents
-//    implementation 'androidx.compose:compose-runtime:0.1.0-dev01'
     kapt deps.lifecycle.compiler
     implementation deps.lifecycle.room
     kapt deps.lifecycle.roomCompiler
