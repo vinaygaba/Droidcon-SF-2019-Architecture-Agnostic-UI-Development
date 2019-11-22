@@ -25,8 +25,10 @@ class ComicbooksAdapter : RecyclerView.Adapter<ComicbooksAdapter.ComicAdapterHol
         with(holder.itemView) {
             comic_title.text = comic.title
             comic_description.text = comic.description
+            val secureImage = comic.thumbnail.imageUrl.replace("http", "https")
             Glide.with(holder.itemView.context)
-                .load(comic.thumbnail.imageUrl)
+                .load(secureImage)
+                .centerCrop()
                 .into(comic_image)
         }
     }
