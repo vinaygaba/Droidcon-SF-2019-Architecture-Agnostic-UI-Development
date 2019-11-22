@@ -16,6 +16,7 @@ fun ComicsScreen() {
     MaterialTheme {
         VerticalScroller {
             Column(crossAxisSize = LayoutSize.Expand) {
+                // TODO(vinay) Replace with data that's passed through the activity
                 for (index in 0..5) {
                     ComicRow()
                 }
@@ -42,7 +43,7 @@ fun ComicRow(){
 fun ComicImage() {
     Surface(color = Color(170,173,196)) {
         Container(height = 120.dp, width = 72.dp) {
-            // Image View
+            // TODO(vinay): Replace with image
         }
     }
 }
