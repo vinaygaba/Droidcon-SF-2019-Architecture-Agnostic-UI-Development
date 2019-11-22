@@ -7,20 +7,36 @@ import androidx.ui.core.dp
 import androidx.ui.foundation.VerticalScroller
 import androidx.ui.graphics.Color
 import androidx.ui.layout.*
+import androidx.ui.material.CircularProgressIndicator
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.surface.Surface
 import androidx.ui.material.themeTextStyle
-import androidx.ui.text.TextStyle
+import androidx.ui.text.style.TextOverflow
 import androidx.ui.tooling.preview.Preview
+import com.droidconsf.architectureagnosticuidevelopment.api.models.Comic
+import com.droidconsf.architectureagnosticuidevelopment.api.models.ComicThumbnail
+import com.droidconsf.architectureagnosticuidevelopment.statemachine.ViewState
 
 @Composable
-fun ComicsScreen() {
+fun ComicsScreen(state: ViewState) {
     MaterialTheme {
         VerticalScroller {
             Column(crossAxisSize = LayoutSize.Expand) {
-                // TODO(vinay) Replace with data that's passed through the activity
-                for (index in 0..5) {
-                    ComicRow()
+                when (state) {
+                    is ViewState.Loading -> {
+                        FlexColumn {
+                            expanded(1f) {
+                                Center {
+                                    CircularProgressIndicator(color = Color.Cyan)
+                                }
+                            }
+                        }
+                    }
+                    is ViewState.ShowingContent -> {
+                        state.comics.forEach { comic ->
+                            ComicRow(comic)
+                        }
+                    }
                 }
             }
         }
@@ -28,13 +44,15 @@ fun ComicsScreen() {
 }
 
 @Composable
-fun ComicRow(){
+fun ComicRow(comic: Comic) {
     Surface(color = Color(24,24,24)) {
-        Row(crossAxisSize = LayoutSize.Expand, modifier = ExpandedWidth) {
-            Row(modifier = Spacing(16.dp)) {
-                ComicImage()
-                Row(modifier = Flexible(1f)) {
-                    TitleSubtitleColumn("Title", "Subtitle")
+        Container(modifier = Spacing(16.dp)) {
+            FlexRow {
+                inflexible {
+                    ComicImage()
+                }
+                expanded(1f) {
+                    TitleSubtitleColumn(comic.title, comic.description)
                 }
             }
         }
@@ -51,15 +69,17 @@ fun ComicImage() {
 }
 
 @Composable
-fun TitleSubtitleColumn(title: String, subtitle: String) {
-    Column(crossAxisSize = LayoutSize.Expand) {
+fun TitleSubtitleColumn(title: String, subtitle: String?) {
+    Column {
         Padding(left = 16.dp, right = 16.dp, bottom = 16.dp) {
-            val textStyle = (+themeTextStyle { h6 }).copy(color = Color.White)
-            Text(title, style = textStyle)
+            val textStyle = (+themeTextStyle { subtitle1 }).copy(color = Color.White)
+            Text(title, style = textStyle, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Padding(left = 16.dp, right = 16.dp) {
-            val textStyle = (+themeTextStyle { subtitle2 }).copy(color = Color.White)
-            Text(subtitle, style = textStyle)
+        subtitle?.let { sub ->
+            Padding(left = 16.dp, right = 16.dp) {
+                val textStyle = (+themeTextStyle { caption }).copy(color = Color.White)
+                Text(sub, style = textStyle, maxLines = 3, overflow = TextOverflow.Ellipsis)
+            }
         }
     }
 }
@@ -67,5 +87,12 @@ fun TitleSubtitleColumn(title: String, subtitle: String) {
 @Preview
 @Composable
 fun Preview() {
-    ComicsScreen()
+    ComicsScreen(
+        ViewState.ShowingContent(listOf(
+            Comic(id = 1, description = "This is dope", issueNumber = 4567,
+                title = "Comic Title that is fairly long to test if maxLines logic is working",
+                thumbnail = ComicThumbnail(extension = "png",
+                    path = ""))
+        ))
+    )
 }
