@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Architecture Agnostic UI Development</string>
+
+    <string name="characters_title">Characters</string>
+    <string name="comic_activity">Comic Activity</string>
+    <string name="price_error_message">There is no price available</string>
+    <string name="load_fail">Loading failed. Please try again.</string>
+    <string name="digital_purchase_price">Digital Purchase Price:</string>
+    <string name="print_price">Print Price:</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="generic_margin_small">4dp</dimen>
+    <dimen name="generic_margin_medium">8dp</dimen>
+    <dimen name="generic_margin_large">16dp</dimen>
+    <dimen name="generic_margin_huge">24dp</dimen>
+
+    <dimen name="generic_image_width">72dp</dimen>
+    <dimen name="generic_image_height">120dp</dimen>
+
+</resources>
