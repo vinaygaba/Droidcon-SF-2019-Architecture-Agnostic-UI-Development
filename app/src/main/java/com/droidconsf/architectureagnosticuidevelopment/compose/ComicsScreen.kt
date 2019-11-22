@@ -1,6 +1,7 @@
 package com.droidconsf.architectureagnosticuidevelopment.compose
 
 import androidx.compose.Composable
+import androidx.compose.unaryPlus
 import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.foundation.VerticalScroller
@@ -8,6 +9,7 @@ import androidx.ui.graphics.Color
 import androidx.ui.layout.*
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.surface.Surface
+import androidx.ui.material.themeTextStyle
 import androidx.ui.text.TextStyle
 import androidx.ui.tooling.preview.Preview
 
@@ -52,10 +54,12 @@ fun ComicImage() {
 fun TitleSubtitleColumn(title: String, subtitle: String) {
     Column(crossAxisSize = LayoutSize.Expand) {
         Padding(left = 16.dp, right = 16.dp, bottom = 16.dp) {
-            Text(title, style = TextStyle(color = Color.White))
+            val textStyle = (+themeTextStyle { h6 }).copy(color = Color.White)
+            Text(title, style = textStyle)
         }
         Padding(left = 16.dp, right = 16.dp) {
-            Text(subtitle, style = TextStyle(color = Color.White))
+            val textStyle = (+themeTextStyle { subtitle2 }).copy(color = Color.White)
+            Text(subtitle, style = textStyle)
         }
     }
 }
