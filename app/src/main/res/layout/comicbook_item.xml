@@ -27,7 +27,7 @@
             android:id="@+id/comic_image"
             android:layout_width="@dimen/generic_image_width"
             android:layout_height="@dimen/generic_image_height"
-            android:scaleType="centerCrop" />
+            />
 
     </androidx.cardview.widget.CardView>
 

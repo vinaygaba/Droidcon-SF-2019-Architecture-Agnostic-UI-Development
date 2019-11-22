@@ -12,7 +12,6 @@ class StateMachineFactory @Inject constructor() {
             initialState(initialState)
 
             state<ViewState.Empty> {
-
                 on<Event.View.LoadComics> {
                     transitionTo(
                         state = ViewState.Loading,
