@@ -1,6 +1,5 @@
 package com.droidconsf.architectureagnosticuidevelopment.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -66,12 +65,10 @@ internal class ComicbooksViewModel(
 
     fun triggerEvent(event: Event) {
         _viewEvent.value = event
-        Log.e("Trigger event", "$event")
         val transition = stateMachine.transition(event)
 
         if (transition is StateMachine.Transition.Valid) {
             _state.value = stateMachine.state
-            Log.e("Transition state", "${ stateMachine.state}")
 
             transition.sideEffect?.let {
                 _sideEffect.value = it
