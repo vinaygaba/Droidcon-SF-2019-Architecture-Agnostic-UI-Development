@@ -1,5 +1,6 @@
 package com.droidconsf.architectureagnosticuidevelopment.core.util
 
+import android.view.View
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -26,4 +27,12 @@ fun md5(stringToHash: String): String {
     }
 
     return ""
+}
+
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
 }
