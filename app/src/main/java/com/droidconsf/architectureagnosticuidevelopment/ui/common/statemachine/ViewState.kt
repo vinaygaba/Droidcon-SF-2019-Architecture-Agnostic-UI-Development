@@ -13,7 +13,5 @@ internal sealed class ViewState {
         val comicbookContext: ComicbooksViewModel.ComicsContext
     ) : ViewState()
 
-    data class CloseScreen(
-        val comicbookContext: ComicbooksViewModel.ComicsContext
-    ) : ViewState()
+    object CloseScreen : ViewState()
 }

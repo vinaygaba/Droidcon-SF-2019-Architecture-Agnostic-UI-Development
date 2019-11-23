@@ -10,9 +10,9 @@ import com.droidconsf.architectureagnosticuidevelopment.core.util.hide
 import com.droidconsf.architectureagnosticuidevelopment.core.util.show
 import com.droidconsf.architectureagnosticuidevelopment.ui.comicbookdetails.ComicbookDetailFragment
 import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.ComicbooksFragment
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.ActivityModule
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.Event
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
-import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.ActivityModule
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                         showDetailScreen()
                     }
                 }
+                is ViewState.CloseScreen -> {
+                    finish()
+                }
             }
         })
     }
@@ -73,5 +76,9 @@ class MainActivity : AppCompatActivity() {
         (application as ArchitectureAgnosticUiApplication).appComponent
             ?.activitySubComponent(ActivityModule(this))
             ?.inject(this)
+    }
+
+    override fun onBackPressed() {
+        viewModel.triggerEvent(Event.View.GoBack)
     }
 }

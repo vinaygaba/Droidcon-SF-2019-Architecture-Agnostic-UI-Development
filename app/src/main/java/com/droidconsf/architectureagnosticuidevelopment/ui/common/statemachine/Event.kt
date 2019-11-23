@@ -9,6 +9,7 @@ sealed class Event {
         data class ShowComicbook(val comicbookId: String) : View()
         data class ComicbookDescriptionExtraLines(val extraLines: Int) : View()
         object ShowMoreDescription : View()
+        object GoBack : View()
     }
 
     sealed class System : Event() {
