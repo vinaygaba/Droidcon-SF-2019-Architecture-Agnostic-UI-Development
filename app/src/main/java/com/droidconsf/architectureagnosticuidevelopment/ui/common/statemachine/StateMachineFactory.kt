@@ -54,6 +54,20 @@ internal class StateMachineFactory @Inject constructor() {
                         )
                     )
                 }
+
+                on<Event.View.GoBack> { event ->
+                    transitionTo(
+                        ViewState.ShowingComicbooks(
+                            comicbookContext.copy(
+                                shouldNavigate = true,
+                                currentDisplayedComic = null,
+                                descriptionExpanded = false,
+                                shouldDisplayShowMoreButton = false
+                            )
+                        )
+                    )
+
+                }
             }
 
             state<ViewState.ShowingComicbooks> {
@@ -66,6 +80,13 @@ internal class StateMachineFactory @Inject constructor() {
                             )
                         )
                     )
+                }
+
+                on<Event.View.GoBack> { event ->
+                    transitionTo(
+                        state = ViewState.CloseScreen
+                    )
+
                 }
             }
         }
