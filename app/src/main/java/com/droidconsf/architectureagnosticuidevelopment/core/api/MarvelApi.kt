@@ -4,21 +4,12 @@ import com.droidconsf.architectureagnosticuidevelopment.core.api.models.MarvelRe
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MarvelApi {
 
     @GET("v1/public/comics")
     fun getComics(
-        @Query("ts") timestamp: String,
-        @Query("apikey") apiKey: String,
-        @Query("hash") hash: String
-    ): Single<Response<MarvelResponses>>
-
-    @GET("v1/public/comics/{comicId}")
-    fun getComicbookDetail(
-        @Path("comicId") comicId: String,
         @Query("ts") timestamp: String,
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String
