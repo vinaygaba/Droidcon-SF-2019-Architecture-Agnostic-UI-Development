@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     android:background="#181818">
 
-    <ProgressBar
-        android:id="@+id/recycler_view_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="8dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimary"
-        android:visibility="gone" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_comicbook"
         android:layout_width="match_parent"
@@ -23,17 +13,5 @@
         android:clipToPadding="false"
         android:paddingBottom="56dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <ProgressBar
-        android:id="@+id/character_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimary"
-        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

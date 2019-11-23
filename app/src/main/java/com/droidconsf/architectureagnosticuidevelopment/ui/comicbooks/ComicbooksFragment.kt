@@ -29,9 +29,7 @@ class ComicbooksFragment : Fragment() {
     internal lateinit var viewModel: ComicbooksViewModel
 
     private lateinit var rvComicbooks: RecyclerView
-    private lateinit var pbCharacter: ProgressBar
-    private val comicbooksAdapter =
-        ComicbooksAdapter()
+    private val comicbooksAdapter = ComicbooksAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,10 +54,6 @@ class ComicbooksFragment : Fragment() {
             when (state) {
                 is ViewState.ShowingComicbooks -> {
                     comicbooksAdapter.updateData(state.comicbookContext.comics)
-                    pbCharacter.visibility = View.GONE
-                }
-                is ViewState.Loading -> {
-                    pbCharacter.visibility = View.VISIBLE
                 }
             }
         })
@@ -75,8 +69,6 @@ class ComicbooksFragment : Fragment() {
 
     private fun setupViews() {
         view?.let {
-            pbCharacter = it.findViewById(R.id.character_progress_bar)
-
             // RecyclerView
             rvComicbooks = it.findViewById(R.id.rv_comicbook)
             rvComicbooks.layoutManager = LinearLayoutManager(context)

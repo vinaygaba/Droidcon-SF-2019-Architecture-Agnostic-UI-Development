@@ -4,4 +4,14 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity" />
+    tools:context=".ui.MainActivity" >
+    <ProgressBar
+        android:id="@+id/recycler_view_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        />
+</FrameLayout>
