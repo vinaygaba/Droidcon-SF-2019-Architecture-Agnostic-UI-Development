@@ -7,10 +7,10 @@ import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.soloader.SoLoader
-import com.droidconsf.architectureagnosticuidevelopment.di.AppComponent
-import com.droidconsf.architectureagnosticuidevelopment.di.AppModule
-import com.droidconsf.architectureagnosticuidevelopment.di.DaggerAppComponent
-import com.droidconsf.architectureagnosticuidevelopment.di.NetModule
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.AppComponent
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.AppModule
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.DaggerAppComponent
+import com.droidconsf.architectureagnosticuidevelopment.core.di.NetModule
 
 
 class ArchitectureAgnosticUiApplication: Application() {

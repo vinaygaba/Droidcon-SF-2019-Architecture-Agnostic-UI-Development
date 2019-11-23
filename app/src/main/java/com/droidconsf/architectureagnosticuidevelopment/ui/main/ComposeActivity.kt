@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.ui.core.setContent
 import com.droidconsf.architectureagnosticuidevelopment.ArchitectureAgnosticUiApplication
-import com.droidconsf.architectureagnosticuidevelopment.compose.ComicsScreen
-import com.droidconsf.architectureagnosticuidevelopment.di.ActivityModule
-import com.droidconsf.architectureagnosticuidevelopment.statemachine.Event
-import com.droidconsf.architectureagnosticuidevelopment.viewmodels.MainViewModel
+import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.compose.ComicsScreen
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.ActivityModule
+import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.Event
+import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.MainViewModel
 import javax.inject.Inject
 
 class ComposeActivity : AppCompatActivity() {
