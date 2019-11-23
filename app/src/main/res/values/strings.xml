@@ -7,4 +7,5 @@
     <string name="load_fail">Loading failed. Please try again.</string>
     <string name="digital_purchase_price">Digital Purchase Price:</string>
     <string name="print_price">Print Price:</string>
+    <string name="show_more">Show More</string>
 </resources>
