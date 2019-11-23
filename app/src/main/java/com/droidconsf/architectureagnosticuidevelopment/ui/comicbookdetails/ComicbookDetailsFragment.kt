@@ -55,7 +55,8 @@ class ComicbookDetailFragment : Fragment() {
         viewModel.descriptionExpanded.observe(this, Observer {
             it?.let { descriptionExpanded ->
                 if (descriptionExpanded) {
-                    comicbookDescription?.maxLines = 0
+                    comicbookDescription?.maxLines = 12
+                    showMoreButton?.visibility = View.INVISIBLE
                 } else {
                     comicbookDescription?.maxLines =
                         requireContext().resources.getInteger(R.integer.description_max_lines)
@@ -74,6 +75,9 @@ class ComicbookDetailFragment : Fragment() {
                 .load(comic.thumbnail.imageUrl)
                 .centerCrop()
                 .into(findViewById(R.id.comic_image))
+            showMoreButton?.setOnClickListener {
+                viewModel.triggerEvent(Event.View.ShowMoreDescription)
+            }
             comicbookDescription?.doOnLayout {
                 descriptionExtraLines(it as TextView)
             }

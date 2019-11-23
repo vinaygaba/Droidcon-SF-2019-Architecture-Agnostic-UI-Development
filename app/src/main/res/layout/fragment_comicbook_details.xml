@@ -51,6 +51,7 @@
         android:id="@+id/comicDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="@integer/description_max_lines"
         android:textColor="@android:color/white"
