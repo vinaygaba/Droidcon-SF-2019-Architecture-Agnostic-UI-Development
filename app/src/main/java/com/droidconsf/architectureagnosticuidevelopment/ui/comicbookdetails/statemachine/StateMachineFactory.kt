@@ -3,7 +3,7 @@ package com.droidconsf.architectureagnosticuidevelopment.ui.comicbookdetails.sta
 import com.tinder.StateMachine
 import javax.inject.Inject
 
-internal sealed class StateMachineFactory @Inject constructor() {
+internal class StateMachineFactory @Inject constructor() {
 
     internal fun create(
         initialState: ViewState
