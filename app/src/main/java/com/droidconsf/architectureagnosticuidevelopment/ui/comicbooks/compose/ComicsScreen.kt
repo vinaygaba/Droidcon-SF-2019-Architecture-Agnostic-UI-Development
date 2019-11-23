@@ -95,6 +95,23 @@ fun TitleSubtitleColumn(title: String, subtitle: String?) {
     }
 }
 
+/**
+ * This should be provided by compose itself but seems like its not included yet. An example was
+ * shown in Leland's talk at AndroidDevSummit 2019 -https://www.youtube.com/watch?v=Q9MtlmmN4Q0
+ * Took the below code from this blogpost -
+ * https://medium.com/swlh/android-mvi-with-jetpack-compose-b0890f5156ac
+ */
+fun <T> observe(data: LiveData<T>) = effectOf<T?> {
+    val result = +state<T?> { data.value }
+    val observer = +memo { Observer<T> { result.value = it } }
+
+    +onCommit(data) {
+        data.observeForever(observer)
+        onDispose { data.removeObserver(observer) }
+    }
+    result.value
+}
+
 @Preview
 @Composable
 fun Preview() {
@@ -116,21 +133,4 @@ fun Preview() {
     ComicsScreen(
         liveData
     )
-}
-
-/**
- * This should be provided by compose itself but seems like its not included yet. An example was
- * shown in Leland's talk at AndroidDevSummit 2019 -https://www.youtube.com/watch?v=Q9MtlmmN4Q0
- * Took the below code from this blogpost -
- * https://medium.com/swlh/android-mvi-with-jetpack-compose-b0890f5156ac
- */
-fun <T> observe(data: LiveData<T>) = effectOf<T?> {
-    val result = +state<T?> { data.value }
-    val observer = +memo { Observer<T> { result.value = it } }
-
-    +onCommit(data) {
-        data.observeForever(observer)
-        onDispose { data.removeObserver(observer) }
-    }
-    result.value
 }
