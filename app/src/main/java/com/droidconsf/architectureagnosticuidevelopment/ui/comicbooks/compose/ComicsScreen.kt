@@ -6,7 +6,14 @@ import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.foundation.VerticalScroller
 import androidx.ui.graphics.Color
-import androidx.ui.layout.*
+import androidx.ui.layout.Center
+import androidx.ui.layout.Column
+import androidx.ui.layout.Container
+import androidx.ui.layout.FlexColumn
+import androidx.ui.layout.FlexRow
+import androidx.ui.layout.LayoutSize
+import androidx.ui.layout.Padding
+import androidx.ui.layout.Spacing
 import androidx.ui.material.CircularProgressIndicator
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.surface.Surface
@@ -15,7 +22,8 @@ import androidx.ui.text.style.TextOverflow
 import androidx.ui.tooling.preview.Preview
 import com.droidconsf.architectureagnosticuidevelopment.core.api.models.Comic
 import com.droidconsf.architectureagnosticuidevelopment.core.api.models.ComicThumbnail
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.ViewState
+import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
 
 @Composable
 internal fun ComicsScreen(state: ViewState) {
@@ -32,8 +40,8 @@ internal fun ComicsScreen(state: ViewState) {
                             }
                         }
                     }
-                    is ViewState.ShowingContent -> {
-                        state.comics.forEach { comic ->
+                    is ViewState.ShowingComicbooks -> {
+                        state.comicbookContext.comics.forEach { comic ->
                             ComicRow(comic)
                         }
                     }
@@ -45,7 +53,7 @@ internal fun ComicsScreen(state: ViewState) {
 
 @Composable
 fun ComicRow(comic: Comic) {
-    Surface(color = Color(24,24,24)) {
+    Surface(color = Color(24, 24, 24)) {
         Container(modifier = Spacing(16.dp)) {
             FlexRow {
                 inflexible {
@@ -61,7 +69,7 @@ fun ComicRow(comic: Comic) {
 
 @Composable
 fun ComicImage() {
-    Surface(color = Color(170,173,196)) {
+    Surface(color = Color(170, 173, 196)) {
         Container(height = 120.dp, width = 72.dp) {
             // TODO(vinay): Replace with image
         }
@@ -88,11 +96,19 @@ fun TitleSubtitleColumn(title: String, subtitle: String?) {
 @Composable
 fun Preview() {
     ComicsScreen(
-        ViewState.ShowingContent(listOf(
-            Comic(id = 1, description = "This is dope", issueNumber = 4567,
-                title = "Comic Title that is fairly long to test if maxLines logic is working",
-                thumbnail = ComicThumbnail(extension = "png",
-                    path = ""))
-        ))
+        ViewState.ShowingComicbooks(
+            ComicbooksViewModel.ComicsContext(
+                comics = listOf(
+                    Comic(
+                        id = 1, description = "This is dope", issueNumber = 4567,
+                        title = "Comic Title that is fairly long to test if maxLines logic is working",
+                        thumbnail = ComicThumbnail(
+                            extension = "png",
+                            path = ""
+                        )
+                    )
+                )
+            )
+        )
     )
 }

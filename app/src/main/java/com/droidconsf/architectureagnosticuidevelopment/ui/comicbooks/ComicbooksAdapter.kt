@@ -29,14 +29,13 @@ class ComicbooksAdapter : RecyclerView.Adapter<ComicbooksAdapter.ComicAdapterHol
         return comicHolder
     }
 
-
     override fun onBindViewHolder(holder: ComicAdapterHolder, position: Int) {
         val comic = comics[position]
 
         with(holder.itemView) {
             comic_title.text = comic.title
             comic_description.text = comic.description
-            val secureImage = comic.thumbnail.imageUrl.replace("http", "https")
+            val secureImage = comic.thumbnail.imageUrl
             Glide.with(holder.itemView.context)
                 .load(secureImage)
                 .centerCrop()

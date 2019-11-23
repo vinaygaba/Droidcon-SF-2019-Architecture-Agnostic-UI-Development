@@ -1,24 +1,26 @@
-package com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks
+package com.droidconsf.architectureagnosticuidevelopment.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.droidconsf.architectureagnosticuidevelopment.BuildConfig
+import com.droidconsf.architectureagnosticuidevelopment.core.api.models.Comic
 import com.droidconsf.architectureagnosticuidevelopment.core.api.models.MarvelResponses
 import com.droidconsf.architectureagnosticuidevelopment.core.rx.SchedulersProvider
 import com.droidconsf.architectureagnosticuidevelopment.core.usecase.GetComics
 import com.droidconsf.architectureagnosticuidevelopment.core.util.md5
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.Event
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.SideEffect
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.StateMachineFactory
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.ViewState
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.Event
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.SideEffect
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.StateMachineFactory
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.BaseViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.toSingleEvent
 import com.tinder.StateMachine
 import java.util.Date
 
-internal class MainViewModel(
-    val schedulersProvider: SchedulersProvider,
-    val getComics: GetComics,
+internal class ComicbooksViewModel(
+    private val schedulersProvider: SchedulersProvider,
+    private val getComics: GetComics,
     stateMachineFactory: StateMachineFactory
 ) : BaseViewModel() {
 
@@ -31,6 +33,22 @@ internal class MainViewModel(
     val state: LiveData<ViewState> = _state
     val sideEffect: LiveData<SideEffect> = _sideEffect
     val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
+
+    // Specialized LiveData to remove verification logic from UI
+    val shouldDisplayShowMoreButton = Transformations.map(state) { viewState ->
+        if (viewState is ViewState.ShowingComicbook) {
+            viewState.comicbookContext.shouldDisplayShowMoreButton
+        } else {
+            null
+        }
+    }
+    val descriptionExpanded = Transformations.map(state) { viewState ->
+        if (viewState is ViewState.ShowingComicbook) {
+            viewState.comicbookContext.descriptionExpanded
+        } else {
+            null
+        }
+    }
 
     fun triggerEvent(event: Event) {
         _viewEvent.value = event
@@ -72,4 +90,11 @@ internal class MainViewModel(
             )
             .autodispose()
     }
+
+    data class ComicsContext(
+        val comics: List<Comic>,
+        val currentDisplayedComic: Comic? = null,
+        val shouldDisplayShowMoreButton: Boolean = false,
+        val descriptionExpanded: Boolean = false
+    )
 }

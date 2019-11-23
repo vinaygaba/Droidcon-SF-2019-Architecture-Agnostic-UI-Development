@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/generic_margin_medium"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="#AAADC4"
+        app:cardCornerRadius="3dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/comic_image"
+            android:layout_width="@dimen/generic_image_width"
+            android:layout_height="@dimen/generic_image_height" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/comicTitle"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="7dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/comicDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cardView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="The best comic book ever" />
+
+    <TextView
+        android:id="@+id/comicDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="@integer/description_max_lines"
+        app:layout_constraintBottom_toTopOf="@+id/showMoreButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/comicTitle"
+        app:layout_constraintTop_toBottomOf="@+id/comicTitle" />
+
+    <Button
+        android:id="@+id/showMoreButton"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/comicDescription"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/comicDescription"
+        app:layout_constraintTop_toBottomOf="@+id/comicDescription"
+        tools:text="Show More" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

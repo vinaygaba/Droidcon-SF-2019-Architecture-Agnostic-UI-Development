@@ -1,9 +1,9 @@
 package com.droidconsf.architectureagnosticuidevelopment.ui.common.di
 
-import com.droidconsf.architectureagnosticuidevelopment.ui.main.MainActivity
+import com.droidconsf.architectureagnosticuidevelopment.ui.MainActivity
 import com.droidconsf.architectureagnosticuidevelopment.ui.comicbookdetails.ComicbookDetailFragment
 import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.ComicbooksFragment
-import com.droidconsf.architectureagnosticuidevelopment.ui.main.ComposeActivity
+import com.droidconsf.architectureagnosticuidevelopment.ui.ComposeActivity
 import dagger.Subcomponent
 
 @ActivityScope

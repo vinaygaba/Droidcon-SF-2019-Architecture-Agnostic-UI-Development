@@ -1,4 +1,4 @@
-package com.droidconsf.architectureagnosticuidevelopment.ui.main
+package com.droidconsf.architectureagnosticuidevelopment.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,13 +7,12 @@ import androidx.ui.core.setContent
 import com.droidconsf.architectureagnosticuidevelopment.ArchitectureAgnosticUiApplication
 import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.compose.ComicsScreen
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.ActivityModule
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.Event
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.MainViewModel
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.Event
 import javax.inject.Inject
 
 class ComposeActivity : AppCompatActivity() {
     @Inject
-    internal lateinit var viewModel: MainViewModel
+    internal lateinit var viewModel: ComicbooksViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.droidconsf.architectureagnosticuidevelopment.ArchitectureAgnosticUiApplication
 import com.droidconsf.architectureagnosticuidevelopment.R
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.Event
-import com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.statemachine.ViewState
+import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.Event
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.EndlessRecyclerOnScrollListener
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.di.ActivityModule
-import com.droidconsf.architectureagnosticuidevelopment.ui.main.MainActivity
 import javax.inject.Inject
 
 class ComicbooksFragment : Fragment() {
@@ -26,7 +26,7 @@ class ComicbooksFragment : Fragment() {
     }
 
     @Inject
-    internal lateinit var viewModel: MainViewModel
+    internal lateinit var viewModel: ComicbooksViewModel
 
     private lateinit var rvComicbooks: RecyclerView
     private lateinit var pbCharacter: ProgressBar
@@ -54,20 +54,23 @@ class ComicbooksFragment : Fragment() {
         viewModel.triggerEvent(Event.View.LoadComics)
         viewModel.state.observe(this, Observer { state ->
             when (state) {
-                is ViewState.ShowingContent -> {
-                    comicbooksAdapter.updateData(state.comics)
+                is ViewState.ShowingComicbooks -> {
+                    comicbooksAdapter.updateData(state.comicbookContext.comics)
                     pbCharacter.visibility = View.GONE
                 }
                 is ViewState.Loading -> {
                     pbCharacter.visibility = View.VISIBLE
                 }
-
-                is ViewState.CloseScreen -> {
-                    // Forgive us for the lack of fanciness in this communication
-                    (requireActivity() as MainActivity).goToDetailScreen(state.comicId)
-                }
             }
         })
+
+        comicbooksAdapter.onComicbookClick = { comicbookId ->
+            viewModel.triggerEvent(
+                Event.View.ShowComicbook(
+                    comicbookId = comicbookId
+                )
+            )
+        }
     }
 
     private fun setupViews() {

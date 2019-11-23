@@ -6,7 +6,7 @@
     <dimen name="generic_margin_large">16dp</dimen>
     <dimen name="generic_margin_huge">24dp</dimen>
 
-    <dimen name="generic_image_width">72dp</dimen>
-    <dimen name="generic_image_height">120dp</dimen>
+    <dimen name="generic_image_width">122dp</dimen>
+    <dimen name="generic_image_height">170dp</dimen>
 
 </resources>

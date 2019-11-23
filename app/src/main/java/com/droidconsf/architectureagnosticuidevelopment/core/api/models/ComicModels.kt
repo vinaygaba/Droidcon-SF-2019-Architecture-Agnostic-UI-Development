@@ -30,5 +30,5 @@ data class ComicThumbnail(
     var path: String? = null
 ) {
     val imageUrl: String
-        get() = "$path.$extension"
+        get() = "$path.$extension".replace("http", "https")
 }
