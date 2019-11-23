@@ -63,13 +63,13 @@
         android:id="@+id/showMoreButton"
         android:layout_width="0dp"
         android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
         android:background="?selectableItemBackgroundBorderless"
+        android:text="@string/show_more"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/comicDescription"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/comicDescription"
-        app:layout_constraintTop_toBottomOf="@+id/comicDescription"
-        tools:text="Show More" />
+        app:layout_constraintTop_toBottomOf="@+id/comicDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

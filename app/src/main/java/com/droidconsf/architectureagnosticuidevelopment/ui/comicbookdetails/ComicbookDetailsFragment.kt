@@ -23,6 +23,9 @@ class ComicbookDetailFragment : Fragment() {
     @Inject
     internal lateinit var viewModel: ComicbooksViewModel
 
+    private var showMoreButton: Button? = null
+    private var comicbookDescription: TextView? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,22 +44,20 @@ class ComicbookDetailFragment : Fragment() {
 
         viewModel.shouldDisplayShowMoreButton.observe(this, Observer {
             it?.let { shouldDisplay ->
-                val showMore = view.findViewById<Button>(R.id.showMoreButton)
                 if (shouldDisplay) {
-                    showMore.visibility = View.VISIBLE
+                    showMoreButton?.visibility = View.VISIBLE
                 } else {
-                    showMore.visibility = View.GONE
+                    showMoreButton?.visibility = View.INVISIBLE
                 }
             }
         })
 
         viewModel.descriptionExpanded.observe(this, Observer {
             it?.let { descriptionExpanded ->
-                val comicDescription = view.findViewById<TextView>(R.id.comicDescription)
                 if (descriptionExpanded) {
-                    comicDescription.maxLines = 0
+                    comicbookDescription?.maxLines = 0
                 } else {
-                    comicDescription.maxLines =
+                    comicbookDescription?.maxLines =
                         requireContext().resources.getInteger(R.integer.description_max_lines)
                 }
             }
@@ -65,11 +66,15 @@ class ComicbookDetailFragment : Fragment() {
 
     private fun bindViews(comic: Comic) {
         view?.run {
-            val description = findViewById<TextView>(R.id.comicDescription)
+            comicbookDescription = findViewById(R.id.comicDescription)
+            showMoreButton = findViewById(R.id.showMoreButton)
             findViewById<TextView>(R.id.comicTitle).text = comic.title
-            description.text = comic.description
-            Glide.with(this).load(comic.thumbnail).into(findViewById(R.id.comic_image))
-            description.doOnLayout {
+            comicbookDescription?.text = comic.description
+            Glide.with(this)
+                .load(comic.thumbnail.imageUrl)
+                .centerCrop()
+                .into(findViewById(R.id.comic_image))
+            comicbookDescription?.doOnLayout {
                 descriptionExtraLines(it as TextView)
             }
         }
