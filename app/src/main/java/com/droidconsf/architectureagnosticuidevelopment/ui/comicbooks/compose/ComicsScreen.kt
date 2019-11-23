@@ -1,9 +1,7 @@
 package com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.compose
 
-import androidx.compose.*
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import androidx.compose.Composable
+import androidx.compose.unaryPlus
 import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.foundation.VerticalScroller
@@ -28,11 +26,10 @@ import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
 
 @Composable
-internal fun ComicsScreen(stateLiveData: LiveData<ViewState>) {
+internal fun ComicsScreen(state: ViewState) {
     MaterialTheme {
         VerticalScroller {
             Column(crossAxisSize = LayoutSize.Expand) {
-                val state = +observe(stateLiveData)
                 when (state) {
                     is ViewState.Loading -> {
                         FlexColumn {
@@ -98,39 +95,20 @@ fun TitleSubtitleColumn(title: String, subtitle: String?) {
 @Preview
 @Composable
 fun Preview() {
-    val liveData = MutableLiveData<ViewState>()
-    liveData.value = ViewState.ShowingComicbooks(
-        ComicbooksViewModel.ComicsContext(
-            comics = listOf(
-                Comic(
-                    id = 1, description = "This is dope", issueNumber = 4567,
-                    title = "Comic Title that is fairly long to test if maxLines logic is working",
-                    thumbnail = ComicThumbnail(
-                        extension = "png",
-                        path = ""
+    ComicsScreen(
+        ViewState.ShowingComicbooks(
+            ComicbooksViewModel.ComicsContext(
+                comics = listOf(
+                    Comic(
+                        id = 1, description = "This is dope", issueNumber = 4567,
+                        title = "Comic Title that is fairly long to test if maxLines logic is working",
+                        thumbnail = ComicThumbnail(
+                            extension = "png",
+                            path = ""
+                        )
                     )
                 )
             )
         )
     )
-    ComicsScreen(
-        liveData
-    )
-}
-
-/**
- * This should be provided by compose itself but seems like its not included yet. An example was
- * shown in Leland's talk at AndroidDevSummit 2019 -https://www.youtube.com/watch?v=Q9MtlmmN4Q0
- * Took the below code from this blogpost -
- * https://medium.com/swlh/android-mvi-with-jetpack-compose-b0890f5156ac
- */
-fun <T> observe(data: LiveData<T>) = effectOf<T?> {
-    val result = +state<T?> { data.value }
-    val observer = +memo { Observer<T> { result.value = it } }
-
-    +onCommit(data) {
-        data.observeForever(observer)
-        onDispose { data.removeObserver(observer) }
-    }
-    result.value
 }

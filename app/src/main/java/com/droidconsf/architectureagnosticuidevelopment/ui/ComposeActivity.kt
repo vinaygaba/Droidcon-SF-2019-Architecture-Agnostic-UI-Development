@@ -18,9 +18,13 @@ class ComposeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initDagger()
         viewModel.triggerEvent(Event.View.LoadComics)
-        setContent {
-            ComicsScreen(viewModel.state)
-        }
+        viewModel.state.observe(this, Observer { state ->
+            // TODO(vinay) Improve this to avoid calling this multiple times and use the
+            // state observer that compose is capable of doing(I think!)
+            setContent {
+                ComicsScreen(state)
+            }
+        })
     }
 
     private fun initDagger() {
