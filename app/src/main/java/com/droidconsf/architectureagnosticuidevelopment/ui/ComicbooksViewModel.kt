@@ -9,11 +9,11 @@ import com.droidconsf.architectureagnosticuidevelopment.core.api.models.MarvelRe
 import com.droidconsf.architectureagnosticuidevelopment.core.rx.SchedulersProvider
 import com.droidconsf.architectureagnosticuidevelopment.core.usecase.GetComics
 import com.droidconsf.architectureagnosticuidevelopment.core.util.md5
+import com.droidconsf.architectureagnosticuidevelopment.ui.common.BaseViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.Event
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.SideEffect
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.StateMachineFactory
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
-import com.droidconsf.architectureagnosticuidevelopment.ui.common.BaseViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.toSingleEvent
 import com.tinder.StateMachine
 import java.util.Date
@@ -30,11 +30,24 @@ internal class ComicbooksViewModel(
     private val _sideEffect = MutableLiveData<SideEffect>()
     private val _viewEvent = MutableLiveData<Event>()
 
+    private var currentDisplayedComic: Comic? = null
+
     val state: LiveData<ViewState> = _state
     val sideEffect: LiveData<SideEffect> = _sideEffect
     val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
 
     // Specialized LiveData to remove verification logic from UI
+    val displayComic = Transformations.map(state) { viewState ->
+        if (viewState is ViewState.ShowingComicbook &&
+            viewState.comicbookContext.currentDisplayedComic != currentDisplayedComic
+        ) {
+            currentDisplayedComic = viewState.comicbookContext.currentDisplayedComic
+            currentDisplayedComic
+        } else {
+            null
+        }
+    }
+
     val shouldDisplayShowMoreButton = Transformations.map(state) { viewState ->
         if (viewState is ViewState.ShowingComicbook) {
             viewState.comicbookContext.shouldDisplayShowMoreButton
@@ -92,6 +105,7 @@ internal class ComicbooksViewModel(
     }
 
     data class ComicsContext(
+        val shouldNavigate: Boolean = true,
         val comics: List<Comic>,
         val currentDisplayedComic: Comic? = null,
         val shouldDisplayShowMoreButton: Boolean = false,

@@ -38,6 +38,7 @@ internal class StateMachineFactory @Inject constructor() {
                     transitionTo(
                         ViewState.ShowingComicbook(
                             comicbookContext = comicbookContext.copy(
+                                shouldNavigate = false,
                                 shouldDisplayShowMoreButton = event.extraLines > 0
                             )
                         )

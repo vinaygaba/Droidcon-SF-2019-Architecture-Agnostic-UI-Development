@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.state.observe(this, Observer { state ->
             when (state) {
                 is ViewState.ShowingComicbooks -> {
-                    if (savedInstanceState == null) {
+                    if (savedInstanceState == null && state.comicbookContext.shouldNavigate) {
                         showComicbooksScreen()
                     }
                 }
                 is ViewState.ShowingComicbook -> {
-                    if (savedInstanceState == null) {
+                    if (savedInstanceState == null && state.comicbookContext.shouldNavigate) {
                         showDetailScreen()
                     }
                 }
