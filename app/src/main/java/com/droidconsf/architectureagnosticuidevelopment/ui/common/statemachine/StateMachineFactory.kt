@@ -24,7 +24,7 @@ internal class StateMachineFactory @Inject constructor() {
             state<ViewState.Loading> {
                 on<Event.System.OnLoadSuccess> { event ->
                     transitionTo(
-                        state = ViewState.ShowingComicbooks(
+                        state = ViewState.ShowingComicBookList(
                             ComicbooksViewModel.ComicsContext(
                                 comics = event.comics
                             )
@@ -33,10 +33,10 @@ internal class StateMachineFactory @Inject constructor() {
                 }
             }
 
-            state<ViewState.ShowingComicbook> {
+            state<ViewState.ShowingComicBook> {
                 on<Event.View.ComicbookDescriptionExtraLines> { event ->
                     transitionTo(
-                        ViewState.ShowingComicbook(
+                        ViewState.ShowingComicBook(
                             comicbookContext = comicbookContext.copy(
                                 shouldNavigate = false,
                                 shouldDisplayShowMoreButton = event.extraLines > 0
@@ -47,7 +47,7 @@ internal class StateMachineFactory @Inject constructor() {
 
                 on<Event.View.ShowMoreDescription> { event ->
                     transitionTo(
-                        ViewState.ShowingComicbook(
+                        ViewState.ShowingComicBook(
                             comicbookContext = comicbookContext.copy(
                                 descriptionExpanded = true
                             )
@@ -57,7 +57,7 @@ internal class StateMachineFactory @Inject constructor() {
 
                 on<Event.View.GoBack> { event ->
                     transitionTo(
-                        ViewState.ShowingComicbooks(
+                        ViewState.ShowingComicBookList(
                             comicbookContext.copy(
                                 shouldNavigate = true,
                                 currentDisplayedComic = null,
@@ -70,10 +70,10 @@ internal class StateMachineFactory @Inject constructor() {
                 }
             }
 
-            state<ViewState.ShowingComicbooks> {
+            state<ViewState.ShowingComicBookList> {
                 on<Event.View.ShowComicbook> { event ->
                     transitionTo(
-                        state = ViewState.ShowingComicbook(
+                        state = ViewState.ShowingComicBook(
                             comicbookContext.copy(
                                 currentDisplayedComic = comicbookContext
                                     .comics.find { it.id.toString() == event.comicbookId }

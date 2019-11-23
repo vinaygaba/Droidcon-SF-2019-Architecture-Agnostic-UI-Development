@@ -1,5 +1,6 @@
 package com.droidconsf.architectureagnosticuidevelopment.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -34,11 +35,11 @@ internal class ComicbooksViewModel(
 
     val state: LiveData<ViewState> = _state
     val sideEffect: LiveData<SideEffect> = _sideEffect
-    val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
+    private val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
 
     // Specialized LiveData to remove verification logic from UI
     val displayComic = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicbook &&
+        if (viewState is ViewState.ShowingComicBook &&
             viewState.comicbookContext.currentDisplayedComic != currentDisplayedComic
         ) {
             currentDisplayedComic = viewState.comicbookContext.currentDisplayedComic
@@ -49,14 +50,14 @@ internal class ComicbooksViewModel(
     }
 
     val shouldDisplayShowMoreButton = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicbook) {
+        if (viewState is ViewState.ShowingComicBook) {
             viewState.comicbookContext.shouldDisplayShowMoreButton
         } else {
             null
         }
     }
     val descriptionExpanded = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicbook) {
+        if (viewState is ViewState.ShowingComicBook) {
             viewState.comicbookContext.descriptionExpanded
         } else {
             null
@@ -65,10 +66,12 @@ internal class ComicbooksViewModel(
 
     fun triggerEvent(event: Event) {
         _viewEvent.value = event
+        Log.e("Trigger event", "$event")
         val transition = stateMachine.transition(event)
 
         if (transition is StateMachine.Transition.Valid) {
             _state.value = stateMachine.state
+            Log.e("Transition state", "${ stateMachine.state}")
 
             transition.sideEffect?.let {
                 _sideEffect.value = it
