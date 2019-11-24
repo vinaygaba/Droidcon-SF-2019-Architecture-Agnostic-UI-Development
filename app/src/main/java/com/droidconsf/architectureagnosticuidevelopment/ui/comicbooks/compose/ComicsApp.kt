@@ -2,12 +2,8 @@ package com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.compose
 
 import androidx.compose.*
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.ui.material.MaterialTheme
-import androidx.ui.tooling.preview.Preview
-import com.droidconsf.architectureagnosticuidevelopment.core.api.models.Comic
-import com.droidconsf.architectureagnosticuidevelopment.core.api.models.ComicThumbnail
 import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
 
@@ -16,15 +12,15 @@ internal fun ComicsApp(
     viewModel: ComicbooksViewModel
 ) {
     MaterialTheme {
-        when (val viewState = +observe(viewModel.state)) {
+        val viewState = +observe(viewModel.state)
+        val displayComic = +observe(viewModel.displayComic)
+        val descriptionExpanded = +observe(viewModel.descriptionExpanded)
+        when (viewState) {
             is ViewState.Loading -> LoadingScreen()
             is ViewState.ShowingComicBookList -> ComicsListScreen(viewModel,
                 viewState.comicbookContext.comics)
-            is ViewState.ShowingComicBook -> ComicDetailScreen(
-                viewModel,
-                viewState.comicbookContext.currentDisplayedComic,
-                viewState.comicbookContext.descriptionExpanded
-            )
+            is ViewState.ShowingComicBook -> ComicDetailScreen(viewModel, displayComic,
+                descriptionExpanded)
         }
     }
 }
