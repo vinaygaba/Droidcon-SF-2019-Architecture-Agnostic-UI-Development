@@ -25,6 +25,7 @@ class ComicbookDetailFragment : Fragment() {
 
     private var showMoreButton: Button? = null
     private var comicbookDescription: TextView? = null
+    private var comicbookTitle: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +36,7 @@ class ComicbookDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpDagger()
+        setupViews()
 
         viewModel.displayComic.observe(this, Observer { it ->
             it?.let { comic ->
@@ -65,11 +67,20 @@ class ComicbookDetailFragment : Fragment() {
         })
     }
 
-    private fun bindViews(comic: Comic) {
+    private fun setupViews() {
         view?.run {
             comicbookDescription = findViewById(R.id.comicDescription)
             showMoreButton = findViewById(R.id.showMoreButton)
-            findViewById<TextView>(R.id.comicTitle).text = comic.title
+            comicbookTitle = findViewById(R.id.comicTitle)
+            comicbookDescription?.doOnLayout {
+                descriptionExtraLines(it as TextView)
+            }
+        }
+    }
+
+    private fun bindViews(comic: Comic) {
+        view?.run {
+            comicbookTitle?.text = comic.title
             comicbookDescription?.text = comic.description
             Glide.with(this)
                 .load(comic.thumbnail.imageUrl)
@@ -77,9 +88,6 @@ class ComicbookDetailFragment : Fragment() {
                 .into(findViewById(R.id.comic_image))
             showMoreButton?.setOnClickListener {
                 viewModel.triggerEvent(Event.View.ShowMoreDescription)
-            }
-            comicbookDescription?.doOnLayout {
-                descriptionExtraLines(it as TextView)
             }
         }
     }
