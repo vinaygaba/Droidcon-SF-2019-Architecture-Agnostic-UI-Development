@@ -21,8 +21,7 @@ internal fun ComicsApp(
             is ViewState.Loading -> LoadingScreen(primaryColor)
             is ViewState.ShowingComicBookList -> ComicsListScreen(viewModel,
                 viewState.comicbookContext.comics)
-            is ViewState.ShowingComicBook -> ComicDetailScreen(viewModel,
-                displayComic ?: viewState.comicbookContext.currentDisplayedComic,
+            is ViewState.ShowingComicBook -> ComicDetailScreen(viewModel, displayComic,
                 descriptionExpanded)
         }
     }
