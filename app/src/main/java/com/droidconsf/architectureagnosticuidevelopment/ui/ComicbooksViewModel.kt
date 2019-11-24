@@ -30,19 +30,14 @@ internal class ComicbooksViewModel(
     private val _sideEffect = MutableLiveData<SideEffect>()
     private val _viewEvent = MutableLiveData<Event>()
 
-    private var currentDisplayedComic: Comic? = null
-
     val state: LiveData<ViewState> = _state
     val sideEffect: LiveData<SideEffect> = _sideEffect
     private val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
 
     // Specialized LiveData to remove verification logic from UI
     val displayComic = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicBook  &&
-            viewState.comicbookContext.currentDisplayedComic != currentDisplayedComic
-        ) {
-            currentDisplayedComic = viewState.comicbookContext.currentDisplayedComic
-            currentDisplayedComic
+        if (viewState is ViewState.ShowingComicbook) {
+            viewState.comicbookContext.currentDisplayedComic
         } else {
             null
         }
