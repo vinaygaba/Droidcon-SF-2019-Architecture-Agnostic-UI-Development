@@ -26,7 +26,7 @@ internal fun ComicDetailScreen(
             Container(modifier = Spacing(16.dp), alignment = Alignment.TopCenter) {
                 FlexRow {
                     inflexible {
-                        ComicImage(122.dp, 170.dp)
+                        ComicImage(122.dp, 170.dp, getRandomImageResId())
                     }
                     expanded(1f) {
                         Column {

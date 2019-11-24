@@ -1,20 +1,28 @@
 package com.droidconsf.architectureagnosticuidevelopment.ui.comicbooks.compose
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.compose.Composable
 import androidx.compose.unaryPlus
 import androidx.ui.core.Dp
 import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.foundation.Clickable
+import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.VerticalScroller
 import androidx.ui.graphics.Color
+import androidx.ui.graphics.Image
 import androidx.ui.layout.*
 import androidx.ui.material.surface.Surface
 import androidx.ui.material.themeTextStyle
+import androidx.ui.res.imageResource
 import androidx.ui.text.style.TextOverflow
+import com.bumptech.glide.Glide
 import com.droidconsf.architectureagnosticuidevelopment.core.api.models.Comic
 import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.Event
+import com.squareup.picasso.Picasso
 
 @Composable
 internal fun ComicsListScreen(viewModel: ComicbooksViewModel, comics: List<Comic>) {
@@ -48,7 +56,7 @@ fun ComicRow(comic: Comic) {
         Container(modifier = Spacing(16.dp)) {
             FlexRow {
                 inflexible {
-                    ComicImage(72.dp, 120.dp)
+                    ComicImage(72.dp, 120.dp, getRandomImageResId())
                 }
                 expanded(1f) {
                     TitleSubtitleColumn(comic.title, comic.description)
@@ -59,13 +67,14 @@ fun ComicRow(comic: Comic) {
 }
 
 @Composable
-fun ComicImage(width: Dp, height: Dp) {
+fun ComicImage(width: Dp, height: Dp, imgRes: Int) {
     Surface(color = Color(170, 173, 196)) {
         Container(height = height, width = width) {
-            // TODO(vinay): Replace with image
+            DrawImage(image = +imageResource(imgRes))
         }
     }
 }
+
 
 @Composable
 fun TitleSubtitleColumn(title: String, subtitle: String?) {
