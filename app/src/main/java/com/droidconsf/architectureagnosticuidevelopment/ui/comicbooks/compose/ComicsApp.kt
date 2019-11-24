@@ -16,14 +16,15 @@ internal fun ComicsApp(
     viewModel: ComicbooksViewModel
 ) {
     MaterialTheme {
-        val viewState = +observe(viewModel.state)
-        val descriptionExpanded = +observe(viewModel.descriptionExpanded)
-        when (viewState) {
+        when (val viewState = +observe(viewModel.state)) {
             is ViewState.Loading -> LoadingScreen()
             is ViewState.ShowingComicBookList -> ComicsListScreen(viewModel,
                 viewState.comicbookContext.comics)
-            is ViewState.ShowingComicBook -> ComicDetailScreen(viewModel,
-                viewState.comicbookContext.currentDisplayedComic, descriptionExpanded)
+            is ViewState.ShowingComicBook -> ComicDetailScreen(
+                viewModel,
+                viewState.comicbookContext.currentDisplayedComic,
+                viewState.comicbookContext.descriptionExpanded
+            )
         }
     }
 }
