@@ -5,11 +5,11 @@ import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
 internal sealed class ViewState {
     object Empty : ViewState()
     object Loading : ViewState()
-    data class ShowingComicbooks(
+    data class ShowingComicBookList(
         val comicbookContext: ComicbooksViewModel.ComicsContext
     ) : ViewState()
 
-    data class ShowingComicbook(
+    data class ShowingComicBook(
         val comicbookContext: ComicbooksViewModel.ComicsContext
     ) : ViewState()
 

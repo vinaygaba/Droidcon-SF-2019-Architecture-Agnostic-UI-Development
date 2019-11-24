@@ -17,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ComposeActivity" />
+        <activity android:name=".ui.ComposeActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
             android:exported="true" />

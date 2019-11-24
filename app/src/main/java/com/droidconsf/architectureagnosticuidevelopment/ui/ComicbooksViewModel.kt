@@ -32,11 +32,11 @@ internal class ComicbooksViewModel(
 
     val state: LiveData<ViewState> = _state
     val sideEffect: LiveData<SideEffect> = _sideEffect
-    val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
+    private val viewEvent: LiveData<Event> = _viewEvent.toSingleEvent()
 
     // Specialized LiveData to remove verification logic from UI
     val displayComic = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicbook) {
+        if (viewState is ViewState.ShowingComicBook) {
             viewState.comicbookContext.currentDisplayedComic
         } else {
             null
@@ -44,14 +44,14 @@ internal class ComicbooksViewModel(
     }
 
     val shouldDisplayShowMoreButton = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicbook) {
+        if (viewState is ViewState.ShowingComicBook) {
             viewState.comicbookContext.shouldDisplayShowMoreButton
         } else {
             null
         }
     }
     val descriptionExpanded = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicbook) {
+        if (viewState is ViewState.ShowingComicBook) {
             viewState.comicbookContext.descriptionExpanded
         } else {
             null

@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
                 is ViewState.Loading -> {
                     progressBar.show()
                 }
-                is ViewState.ShowingComicbooks -> {
+                is ViewState.ShowingComicBookList -> {
                     if (savedInstanceState == null && state.comicbookContext.shouldNavigate) {
                         progressBar.hide()
                         showComicbooksScreen()
                     }
                 }
-                is ViewState.ShowingComicbook -> {
+                is ViewState.ShowingComicBook -> {
                     if (savedInstanceState == null && state.comicbookContext.shouldNavigate) {
                         progressBar.hide()
                         showDetailScreen()

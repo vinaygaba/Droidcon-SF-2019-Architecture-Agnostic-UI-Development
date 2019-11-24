@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,7 +51,7 @@ class ComicbooksFragment : Fragment() {
         viewModel.triggerEvent(Event.View.LoadComics)
         viewModel.state.observe(this, Observer { state ->
             when (state) {
-                is ViewState.ShowingComicbooks -> {
+                is ViewState.ShowingComicBookList -> {
                     comicbooksAdapter.updateData(state.comicbookContext.comics)
                 }
             }
