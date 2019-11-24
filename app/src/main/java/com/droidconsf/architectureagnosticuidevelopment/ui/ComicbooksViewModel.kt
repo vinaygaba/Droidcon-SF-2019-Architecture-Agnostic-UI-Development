@@ -38,7 +38,9 @@ internal class ComicbooksViewModel(
 
     // Specialized LiveData to remove verification logic from UI
     val displayComic = Transformations.map(state) { viewState ->
-        if (viewState is ViewState.ShowingComicBook) {
+        if (viewState is ViewState.ShowingComicBook  &&
+            viewState.comicbookContext.currentDisplayedComic != currentDisplayedComic
+        ) {
             currentDisplayedComic = viewState.comicbookContext.currentDisplayedComic
             currentDisplayedComic
         } else {

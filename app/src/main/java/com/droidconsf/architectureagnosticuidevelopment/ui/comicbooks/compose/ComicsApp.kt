@@ -4,6 +4,7 @@ import androidx.compose.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.ui.material.MaterialTheme
+import androidx.ui.material.themeColor
 import com.droidconsf.architectureagnosticuidevelopment.ui.ComicbooksViewModel
 import com.droidconsf.architectureagnosticuidevelopment.ui.common.statemachine.ViewState
 
@@ -15,11 +16,13 @@ internal fun ComicsApp(
         val viewState = +observe(viewModel.state)
         val displayComic = +observe(viewModel.displayComic)
         val descriptionExpanded = +observe(viewModel.descriptionExpanded)
+        val primaryColor = +themeColor { primary }
         when (viewState) {
-            is ViewState.Loading -> LoadingScreen()
+            is ViewState.Loading -> LoadingScreen(primaryColor)
             is ViewState.ShowingComicBookList -> ComicsListScreen(viewModel,
                 viewState.comicbookContext.comics)
-            is ViewState.ShowingComicBook -> ComicDetailScreen(viewModel, displayComic,
+            is ViewState.ShowingComicBook -> ComicDetailScreen(viewModel,
+                displayComic ?: viewState.comicbookContext.currentDisplayedComic,
                 descriptionExpanded)
         }
     }
